@@ -1,7 +1,7 @@
-const calculateTip = (total, tipPercent = .25) => total + (total*tipPercent)
+const calculateTip = (total, tipPercent = .25) => total + (total * tipPercent)
 
 const farenheitToCelsius = (temp) => {
-    return (temp -32) / 1.8
+    return (temp - 32) / 1.8
 }
 
 const celsiusToFarenheit = (temp) => {
@@ -11,11 +11,11 @@ const celsiusToFarenheit = (temp) => {
 const add = (a, b) => {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            if(a < 0 || b < 0){
+            if (a < 0 || b < 0) {
                 return reject("Numbers must pe positive")
             }
 
-            resolve(a+b)
+            resolve(a + b)
         }, 2000)
     })
 }

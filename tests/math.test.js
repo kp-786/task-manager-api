@@ -1,7 +1,7 @@
-const {calculateTip, farenheitToCelsius, celsiusToFarenheit, add} = require('../src/math')
+const { calculateTip, farenheitToCelsius, celsiusToFarenheit, add } = require('../src/math')
 
 test('Calculate total with tip', () => {
-    const total = calculateTip(10,.3)
+    const total = calculateTip(10, .3)
     expect(total).toBe(13)
 })
 

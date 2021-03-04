@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema({
         required: true,
         trim: true,
         minlength: 7,
-        validate(value){
+        validate(value) {
             if (value.toLowerCase().includes('password')) {
                 throw new Error('Password should not contain string Password')
             }
@@ -37,8 +37,8 @@ const userSchema = new mongoose.Schema({
         type: Number,
         default: 0,
         validate(value) {
-            if (value<0) {
-                    throw new Error('Age must be positive number')
+            if (value < 0) {
+                throw new Error('Age must be positive number')
             }
         }
     },
@@ -61,7 +61,7 @@ userSchema.virtual('tasks', {
     foreignField: 'owner'
 })
 
-userSchema.methods.toJSON = function() {
+userSchema.methods.toJSON = function () {
     const user = this
     const userObject = user.toObject()
 
@@ -73,21 +73,21 @@ userSchema.methods.toJSON = function() {
 
 userSchema.methods.generateAuthToken = async function () {
     const user = this
-    const token = jwt.sign({_id: user._id.toString()} , process.env.JWT_SECRET)
-    
-    user.tokens = user.tokens.concat({token})
+    const token = jwt.sign({ _id: user._id.toString() }, process.env.JWT_SECRET)
+
+    user.tokens = user.tokens.concat({ token })
     await user.save()
     return token
 }
 
 userSchema.statics.findByCredentials = async (email, password) => {
-    const user = await User.findOne({email})
-    if(!user){
+    const user = await User.findOne({ email })
+    if (!user) {
         throw new Error('Unable to login')
     }
     const isMatch = await bcrypt.compare(password, user.password)
 
-    if(!isMatch){
+    if (!isMatch) {
         throw new Error('Unable to login')
     }
 
@@ -106,9 +106,9 @@ userSchema.pre('save', async function (next) {
 })
 
 
-userSchema.pre('remove', async function(next) {
+userSchema.pre('remove', async function (next) {
     const user = this
-    await Task.deleteMany({owner: user._id})
+    await Task.deleteMany({ owner: user._id })
 
     next()
 })
